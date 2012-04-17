@@ -24,14 +24,14 @@ public interface Compatibility {
 	 * RWT.RAP_CANCEL_KEYS constant
 	 */
 	public static final String RAP_CANCEL_KEYS = "org.eclipse.rap.rwt.cancelKeys";
-
+	
 	/**
-	 * SWT.Paint constant
-	 *
+	 * SWT.Paint constant 
+	 *  
 	 * TODO remove it when available in RAP
 	 */
 	public final static int Paint = 9;
-
+	
 	/**
 	 * Copies the selected text.
 	 * <p>
@@ -45,7 +45,7 @@ public interface Compatibility {
 	 * </ul>
 	 */
 	public void copy(Text text);
-
+	
 	/**
 	 * Cuts the selected text.
 	 * <p>
@@ -53,14 +53,14 @@ public interface Compatibility {
 	 * from the widget.
 	 * </p>
 	 * @param text Text widget where to cut
-	 *
+	 * 
 	 * @exception SWTException <ul>
 	 *    <li>ERROR_WIDGET_DISPOSED - if the receiver has been disposed</li>
 	 *    <li>ERROR_THREAD_INVALID_ACCESS - if not called from the thread that created the receiver</li>
 	 * </ul>
 	 */
 	public void cut(Text text);
-
+	
 	/**
 	 * Pastes text from clipboard.
 	 * <p>
@@ -75,11 +75,11 @@ public interface Compatibility {
 	 * </ul>
 	 */
 	public void paste(Text text);
-
+	
 	/**
 	 * Removes the listener from the collection of listeners who will
 	 * be notified when the receiver's text is modified.
-	 *
+	 *  
 	 * @param widget the widget where listener must be removed
 	 * @param listener the listener which should no longer be notified
 	 * @exception IllegalArgumentException <ul>
@@ -92,7 +92,7 @@ public interface Compatibility {
 	 * @see ModifyListener
 	 */
 	public void removeModifyListener(Widget widget,ModifyListener listener);
-
+	
 	/**
 	 * Removes the listener from the collection of listeners who will
 	 * be notified when the receiver's selection changes.
@@ -109,7 +109,7 @@ public interface Compatibility {
 	 * @see SelectionListener
 	 */
 	public void removeSelectionListener(Widget widget,SelectionListener listener);
-
+	
 	/**
 	 * Removes the listener from the collection of listeners who will
 	 * be notified when the control is verified.
@@ -126,18 +126,18 @@ public interface Compatibility {
 	 * @see VerifyListener
 	 */
 	public void removeVerifyListener(Widget widget,VerifyListener listener);
-
+	
 	/**
-	 *
+	 * 
 	 * @return locale to use
 	 */
 	public Locale getLocale();
-
+	
 	/**
 	 * Based on the argument, perform one of the expected platform
 	 * traversal action. The argument should be one of the constants:
-	 * <code>SWT.TRAVERSE_ESCAPE</code>, <code>SWT.TRAVERSE_RETURN</code>,
-	 * <code>SWT.TRAVERSE_TAB_NEXT</code>, <code>SWT.TRAVERSE_TAB_PREVIOUS</code>,
+	 * <code>SWT.TRAVERSE_ESCAPE</code>, <code>SWT.TRAVERSE_RETURN</code>, 
+	 * <code>SWT.TRAVERSE_TAB_NEXT</code>, <code>SWT.TRAVERSE_TAB_PREVIOUS</code>, 
 	 * <code>SWT.TRAVERSE_ARROW_NEXT</code>, <code>SWT.TRAVERSE_ARROW_PREVIOUS</code>,
 	 * <code>SWT.TRAVERSE_PAGE_NEXT</code> and <code>SWT.TRAVERSE_PAGE_PREVIOUS</code>.
 	 *
