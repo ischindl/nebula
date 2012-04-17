@@ -97,7 +97,6 @@ public class DateChooser extends Composite {
 	public final static DateChooserComponent COMP = (DateChooserComponent) ImplementationLoader.newInstance(DateChooserComponent.class);
 
 	private static final String[] KEYS_TO_FILTER = new String[]{"PAGE_UP","PAGE_DOWN","SPACE","HOME","ARROW_LEFT","ARROW_UP","ARROW_RIGHT","ARROW_DOWN"};
-
 	/** Bundle name constant */
 	public static final String BUNDLE_NAME = "org.eclipse.nebula.widgets.datechooser.resources"; //$NON-NLS-1$
 	/** Header spacing constant */
@@ -1542,7 +1541,7 @@ public class DateChooser extends Composite {
 
 		// Font
 		setFont(theme.font);
-		
+
 		prevMonth.setBackground(theme.headerBackground);
 		prevMonth.setForeground(theme.headerForeground);
 		nextMonth.setBackground(theme.headerBackground);
