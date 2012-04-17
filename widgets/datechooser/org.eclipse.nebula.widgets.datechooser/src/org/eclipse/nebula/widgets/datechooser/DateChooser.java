@@ -25,6 +25,10 @@ import java.util.TimeZone;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.nebula.widgets.datechooser.internal.Compatibility;
+import org.eclipse.nebula.widgets.datechooser.internal.DateChooserComponent;
+import org.eclipse.nebula.widgets.datechooser.internal.NLSMessages;
+import org.eclipse.nebula.widgets.internal.singlesourcing.ImplementationLoader;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
@@ -90,6 +94,11 @@ import org.eclipse.swt.widgets.TypedListener;
  * </ul>
  */
 public class DateChooser extends Composite {
+	public final static Compatibility API = (Compatibility) ImplementationLoader.newInstance(Compatibility.class);
+	public final static DateChooserComponent COMP = (DateChooserComponent) ImplementationLoader.newInstance(DateChooserComponent.class);
+	
+	private static final String[] KEYS_TO_FILTER = new String[]{"PAGE_UP","PAGE_DOWN","SPACE","HOME","ARROW_LEFT","ARROW_UP","ARROW_RIGHT","ARROW_DOWN"};
+	
 	/** Bundle name constant */
 	public static final String BUNDLE_NAME = "org.eclipse.nebula.widgets.datechooser.resources"; //$NON-NLS-1$
 	/** Header spacing constant */
@@ -161,7 +170,7 @@ public class DateChooser extends Composite {
 	/** Minimal number of days in the first week */
 	protected int minimalDaysInFirstWeek;
 	/** Resources bundle */
-	protected ResourceBundle resources;
+	protected NLSMessages messages;
 
 	// ----- Dates -----
 	/** Date of 1st day of the currently displayed month */
@@ -321,7 +330,7 @@ public class DateChooser extends Composite {
 		multi			= (style & SWT.MULTI) > 0;
 		selection = new ArrayList();
 		createContent();
-		setLocale(Locale.getDefault());
+		setLocale(API.getLocale());
 		setTheme(DateChooserTheme.getDefaultTheme());
 		setTodayDate(new Date());
 		setCurrentMonth(todayCal.getTime());
@@ -382,16 +391,7 @@ public class DateChooser extends Composite {
 	protected void calendarEvent(Event event) {
 		switch ( event.type ) {
 			case SWT.Traverse :
-				switch (event.detail) {
-					case SWT.TRAVERSE_ARROW_NEXT :
-					case SWT.TRAVERSE_ARROW_PREVIOUS :
-					case SWT.TRAVERSE_PAGE_NEXT :
-					case SWT.TRAVERSE_PAGE_PREVIOUS :
-						event.doit = false;
-						break;
-					default :
-						event.doit = true;
-				}
+				COMP.chooserTraverseEvent(event);
 				break;
 
 			case SWT.FocusIn :
@@ -535,6 +535,8 @@ public class DateChooser extends Composite {
 
 		addListener(SWT.Dispose, listener);
 		addListener(SWT.Traverse, listener);
+		setData(Compatibility.RAP_ACTIVE_KEYS, KEYS_TO_FILTER);
+		setData(Compatibility.RAP_CANCEL_KEYS,KEYS_TO_FILTER);
 		addListener(SWT.KeyDown, listener);
 		addListener(SWT.FocusIn, listener);
 	}
@@ -550,7 +552,7 @@ public class DateChooser extends Composite {
 		gridPanel = new Composite(this, SWT.NONE);
 		gridLayout = new DateChooserLayout();
 		gridPanel.setLayout(gridLayout);
-		gridPanel.addListener(SWT.Paint, listener);
+		gridPanel.addListener(Compatibility.Paint, listener);
 
 		// Weeks numbers panel
 		weeksPanel = new Composite(gridPanel, SWT.NONE);
@@ -574,7 +576,7 @@ public class DateChooser extends Composite {
 			days[i] = new Cell(daysPanel, i);
 			days[i].label.addListener(SWT.MouseUp, listener);
 		}
-		daysPanel.addListener(SWT.Paint, listener);
+		daysPanel.addListener(Compatibility.Paint, listener);
 
 		// Footer panel
 		todayLabel = new Label(gridPanel, SWT.CENTER);
@@ -594,7 +596,7 @@ public class DateChooser extends Composite {
 		GridDataFactory.fillDefaults().applyTo(monthPanel);
 		monthPanel.addListener(SWT.MouseDown, listener);
 
-		prevMonth = new Button(monthPanel, SWT.ARROW | SWT.LEFT | SWT.FLAT);
+		prevMonth = API.createArrowButton(monthPanel, true, SWT.FLAT);
 		prevMonth.addListener(SWT.MouseUp, listener);
 		prevMonth.addListener(SWT.FocusIn, listener);
 
@@ -602,7 +604,7 @@ public class DateChooser extends Composite {
 		currentMonth.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		currentMonth.addListener(SWT.MouseDown, listener);
 
-		nextMonth = new Button(monthPanel, SWT.ARROW | SWT.RIGHT | SWT.FLAT);
+		nextMonth = API.createArrowButton(monthPanel, false, SWT.FLAT);
 		nextMonth.addListener(SWT.MouseUp, listener);
 		nextMonth.addListener(SWT.FocusIn, listener);
 
@@ -767,7 +769,7 @@ public class DateChooser extends Composite {
 				break;
 			}
 
-			case SWT.Paint : {
+			case Compatibility.Paint : {
 				if ( ! hasFocus ) return;
 				if ( focusIndex < 0 ) setFocus(-1);
 
@@ -1046,7 +1048,7 @@ public class DateChooser extends Composite {
 	public void removeSelectionListener(SelectionListener lsnr) {
 		checkWidget();
 		if ( lsnr == null ) SWT.error(SWT.ERROR_NULL_ARGUMENT);
-		removeListener(SWT.Selection, lsnr);
+		API.removeSelectionListener(this,lsnr);
 	}
 
 	/**
@@ -1393,16 +1395,16 @@ public class DateChooser extends Composite {
 		this.locale = locale;
 
 		// Loads the resources
-		resources = ResourceBundle.getBundle(BUNDLE_NAME, locale);
-		prevMonth.setToolTipText(resources.getString("DateChooser.previousButton")); //$NON-NLS-1$
-		nextMonth.setToolTipText(resources.getString("DateChooser.nextButton")); //$NON-NLS-1$
+		messages = COMP.getNLS(locale);
+		prevMonth.setToolTipText(messages.DateChooser_previousButton); //$NON-NLS-1$
+		nextMonth.setToolTipText(messages.DateChooser_nextButton); //$NON-NLS-1$
 
 		// Defines formats
 		df1 = new SimpleDateFormat("MMMM yyyy", locale); //$NON-NLS-1$
 		df2 = DateFormat.getDateInstance(DateFormat.SHORT, locale);
 		Calendar c = Calendar.getInstance(TimeZone.getDefault(), locale);
 		firstDayOfWeek = c.getFirstDayOfWeek();
-		minimalDaysInFirstWeek = Integer.parseInt(resources.getString("minimalDaysInFirstWeek"));
+		minimalDaysInFirstWeek = Integer.parseInt(messages.minimalDaysInFirstWeek);
 		if ( currentMonthCal != null ) {
 			currentMonthCal.setFirstDayOfWeek(firstDayOfWeek);
 			currentMonthCal.setMinimalDaysInFirstWeek(minimalDaysInFirstWeek);
@@ -1602,7 +1604,7 @@ public class DateChooser extends Composite {
 	 */
 	private void updateTodayLabel() {
 		if ( todayCal != null ) {
-			todayLabel.setText(resources.getString("DateChooser.today")
+			todayLabel.setText(messages.DateChooser_today
 					 + " " + df2.format(todayCal.getTime()));
 		}
 	}
