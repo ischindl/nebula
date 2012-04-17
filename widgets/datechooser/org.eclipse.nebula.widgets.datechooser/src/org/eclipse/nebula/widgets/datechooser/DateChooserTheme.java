@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.nebula.widgets.datechooser;
 
+import org.eclipse.nebula.widgets.datechooser.internal.ColorUtil;
+import org.eclipse.nebula.widgets.datechooser.internal.DateChooserThemeProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -34,19 +36,36 @@ import org.eclipse.swt.widgets.Display;
  * </ul>
  */
 public class DateChooserTheme {
-	/** GRAY theme. Default */
-	public static final DateChooserTheme GRAY;
-	/** BLUE theme */
-	public static final DateChooserTheme BLUE;
-	/** YELLOW theme */
-	public static final DateChooserTheme YELLOW;
-	/** CLASSIC theme */
-	public static final DateChooserTheme CLASSIC;
-	/** SYSTEM theme */
-	public static final DateChooserTheme SYSTEM;
-
-	/** Default theme */
-	protected static DateChooserTheme defaultTheme;
+	/** 
+	 * GRAY theme. Default 
+	 * Does not work in RAP
+	 * @deprecated use <code>gray()</code> instead
+	 * */
+	public static DateChooserTheme GRAY;
+	/**
+	 *  BLUE theme 
+	 *  Does not work in RAP
+	 *  @deprecated use <code>blue()</code> instead 
+	 **/
+	public static DateChooserTheme BLUE;
+	/**
+	 *  YELLOW theme
+	 *  Does not work in RAP
+	 *  @deprecated use <code>yellow()</code> instead 
+	 **/
+	public static DateChooserTheme YELLOW;
+	/** 
+	 * CLASSIC theme
+	 * Does not work in RAP
+	 * @deprecated use <code>classic()</code> instead 
+	 **/
+	public static DateChooserTheme CLASSIC;
+	/** 
+	 * SYSTEM theme
+	 * Does not work in RAP
+	 * @deprecated use <code>system()</code> instead 
+	 **/
+	public static DateChooserTheme SYSTEM;
 
 	// ----- Colors -----
 	/** Color for the border */
@@ -91,15 +110,6 @@ public class DateChooserTheme {
 	/** Font */
 	Font font = null;
 
-	static {
-		GRAY		= new DateChooserTheme();
-		BLUE		= createBlueTheme();
-		YELLOW	= createYellowTheme();
-		CLASSIC = createClassicTheme();
-		SYSTEM  = createSystemTheme();
-		defaultTheme = GRAY;
-	}
-
 	/**
 	 * Constructs a new instance of this class. All colors elements are
 	 * initialized with the default GRAY theme.
@@ -119,97 +129,8 @@ public class DateChooserTheme {
 		this.todayBackground			= this.headerBackground;
 		this.todayForeground			= this.headerForeground;
 		this.extraMonthForeground	= this.gridLinesColor;
-		this.weekendForeground		= new Color(display, 180, 0, 0);
+		this.weekendForeground		= ColorUtil.getColor(180, 0, 0);
 		this.focusColor						= display.getSystemColor(SWT.COLOR_RED);
-	}
-
-	/**
-	 * Creates the BLUE theme.
-	 * 
-	 * @return BLUE theme
-	 */
-	private static DateChooserTheme createBlueTheme() {
-		Display display = Display.getCurrent();
-		DateChooserTheme theme = new DateChooserTheme();
-
-		theme.headerBackground		 = new Color(display, 170, 190, 220);
-		theme.gridHeaderBackground = theme.headerBackground;
-		theme.dayCellBackground		 = new Color(display, 190, 220, 240);
-		theme.extraMonthForeground = display.getSystemColor(SWT.COLOR_DARK_GRAY);
-		theme.weekendForeground		 = display.getSystemColor(SWT.COLOR_RED);
-		theme.todayBackground			 = display.getSystemColor(SWT.COLOR_WHITE);
-
-		return theme;
-	}
-
-	/**
-	 * Creates the CLASSIC theme.
-	 * 
-	 * @return CLASSIC theme
-	 */
-	private static DateChooserTheme createClassicTheme() {
-		Display display = Display.getCurrent();
-		DateChooserTheme theme = new DateChooserTheme();
-
-		theme.borderBackground		 = display.getSystemColor(SWT.COLOR_WHITE);
-		theme.gridHeaderBackground = theme.borderBackground;
-		theme.borderSize  = 3;
-		theme.cellPadding = 3;
-		theme.gridVisible = DateChooser.GRID_LINES;
-
-		return theme;
-	}
-
-	/**
-	 * Creates the SYSTEM theme.
-	 * 
-	 * @return SYSTEM theme
-	 */
-	private static DateChooserTheme createSystemTheme() {
-		Display display = Display.getCurrent();
-		DateChooserTheme theme = new DateChooserTheme();
-
-		theme.borderBackground		 = display.getSystemColor(SWT.COLOR_LIST_BACKGROUND);
-		theme.headerBackground		 = display.getSystemColor(SWT.COLOR_WIDGET_BACKGROUND);
-		theme.headerForeground		 = display.getSystemColor(SWT.COLOR_WIDGET_FOREGROUND);
-		theme.gridHeaderBackground = theme.borderBackground;
-		theme.gridHeaderForeground = display.getSystemColor(SWT.COLOR_LIST_FOREGROUND);
-		theme.gridLinesColor			 = display.getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW);
-		theme.dayCellBackground		 = theme.borderBackground;
-		theme.dayCellForeground		 = theme.gridHeaderForeground;
-		theme.selectedBackground	 = display.getSystemColor(SWT.COLOR_LIST_SELECTION);
-		theme.selectedForeground	 = display.getSystemColor(SWT.COLOR_LIST_SELECTION_TEXT);
-		theme.todayBackground			 = theme.borderBackground;
-		theme.todayForeground			 = theme.gridHeaderForeground;
-		theme.extraMonthForeground = theme.gridLinesColor;
-		theme.weekendForeground		 = theme.dayCellForeground;
-		theme.focusColor					 = display.getSystemColor(SWT.COLOR_TITLE_BACKGROUND);
-		theme.borderSize  = 3;
-		theme.cellPadding = 3;
-		theme.gridVisible = DateChooser.GRID_LINES;
-
-		return theme;
-	}
-
-	/**
-	 * Creates the YELLOW theme.
-	 * 
-	 * @return YELLOW theme
-	 */
-	private static DateChooserTheme createYellowTheme() {
-		Display display = Display.getCurrent();
-		DateChooserTheme theme = new DateChooserTheme();
-
-		theme.headerBackground		 = new Color(display, 190, 180, 60);
-		theme.gridHeaderBackground = theme.headerBackground;
-		theme.dayCellBackground		 = new Color(display, 255, 255, 170);
-		theme.extraMonthForeground = display.getSystemColor(SWT.COLOR_DARK_GRAY);
-		theme.weekendForeground		 = display.getSystemColor(SWT.COLOR_RED);
-		theme.todayBackground			 = display.getSystemColor(SWT.COLOR_GRAY);
-		theme.selectedBackground	 = display.getSystemColor(SWT.COLOR_DARK_GREEN);
-		theme.selectedForeground	 = display.getSystemColor(SWT.COLOR_WHITE);
-
-		return theme;
 	}
 
 	/**
@@ -218,7 +139,32 @@ public class DateChooserTheme {
 	 * @return default theme
 	 */
 	public static DateChooserTheme getDefaultTheme() {
-		return defaultTheme;
+		return DateChooserThemeProvider.getInstance().getDefaultTheme();
+	}
+	
+	/**
+	 * @return GRAY theme. Default 
+	 */
+	public static DateChooserTheme gray(){
+		return DateChooserThemeProvider.getInstance().getGray();
+	}
+	/**
+	 *  @return BLUE theme  
+	 * */
+	public static DateChooserTheme blue(){
+		return DateChooserThemeProvider.getInstance().getBlue();
+	}
+	/** @return YELLOW theme */
+	public static DateChooserTheme yellow(){
+		return DateChooserThemeProvider.getInstance().getYellow();
+	}
+	/** @return CLASSIC theme */
+	public static DateChooserTheme classic(){
+		return DateChooserThemeProvider.getInstance().getClassic();
+	}
+	/** @return SYSTEM theme */
+	public static DateChooserTheme system(){
+		return DateChooserThemeProvider.getInstance().getSystem();
 	}
 
 	/**
@@ -227,8 +173,7 @@ public class DateChooserTheme {
 	 * @param defaultTheme new default theme
 	 */
 	public static void setDefaultTheme(DateChooserTheme defaultTheme) {
-		if ( defaultTheme == null ) SWT.error(SWT.ERROR_NULL_ARGUMENT);
-		DateChooserTheme.defaultTheme = defaultTheme;
+		DateChooserThemeProvider.getInstance().setDefaultTheme(defaultTheme);
 	}
 
 	public void setBorderBackground(Color borderBackground) {
