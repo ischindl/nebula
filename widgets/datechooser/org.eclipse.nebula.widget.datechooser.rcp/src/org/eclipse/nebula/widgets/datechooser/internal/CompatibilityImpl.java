@@ -7,10 +7,7 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.internal.SWTEventListener;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TypedListener;
@@ -63,9 +60,5 @@ public class CompatibilityImpl implements Compatibility {
 
 	public boolean traverse(Control control, int traversal) {
 		return control.traverse(traversal);
-	}
-
-	public Button createArrowButton(Composite composite, boolean left, int style) {
-		return new Button(composite,SWT.ARROW | (left ? SWT.LEFT : SWT.RIGHT) | style);
 	}
 }
