@@ -1541,6 +1541,11 @@ public class DateChooser extends Composite {
 
 		// Font
 		setFont(theme.font);
+		
+		prevMonth.setBackground(theme.headerBackground);
+		prevMonth.setForeground(theme.headerForeground);
+		nextMonth.setBackground(theme.headerBackground);
+		nextMonth.setForeground(theme.headerForeground);
 
 		prevMonth.setBackground(theme.headerBackground);
 		prevMonth.setForeground(theme.headerForeground);
