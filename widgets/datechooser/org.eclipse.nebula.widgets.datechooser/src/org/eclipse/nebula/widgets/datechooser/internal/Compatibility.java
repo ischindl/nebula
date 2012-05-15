@@ -153,13 +153,4 @@ public interface Compatibility {
 	 * </ul>
 	 */
 	public boolean traverse (Control control, int traversal);
-	
-	/**
-	 * Create an "arrow" button, SWT.ARROW is not supported in RAP, so this method provide an alternative
-	 * @param composite the button parent
-	 * @param left <code>true</code> if button is a left arrow, <code>false</code> if it is a right arrow
-	 * @param style button style
-	 * @return button instance
-	 */
-	public Button createArrowButton(Composite composite,boolean left,int style);
 }
