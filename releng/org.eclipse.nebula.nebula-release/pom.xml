@@ -86,19 +86,6 @@
 		<profile>
 			<id>platform-juno</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<id>juno</id>
-					<layout>p2</layout>
-					<url>http://download.eclipse.org/releases/juno</url>
-				</repository>
-			</repositories>
-		</profile>
-		<profile>
-			<id>platform-juno</id>
-			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<repositories>
