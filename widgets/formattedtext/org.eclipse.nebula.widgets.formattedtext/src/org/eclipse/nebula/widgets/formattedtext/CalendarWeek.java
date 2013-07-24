@@ -102,14 +102,14 @@ public class CalendarWeek extends GregorianCalendar {
 
 	private int getMinimalDays() {
 		int minimalDays = 7;
-		
+
 		String minimalDaysProperty = System.getProperty("minimal.days.in.first.week");
 		if (minimalDaysProperty != null && !"".equals(minimalDaysProperty));
 		try {
 			minimalDays = Integer.parseInt(minimalDaysProperty);
 		} catch (NumberFormatException e) {
 		}
-		
+
 		return minimalDays;
 	}
 
