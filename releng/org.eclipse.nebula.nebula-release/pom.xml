@@ -84,15 +84,15 @@
 			</repositories>
 		</profile>
 		<profile>
-			<id>platform-indigo</id>
+			<id>platform-juno</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<repositories>
 				<repository>
-					<id>eclipse-platform</id>
+					<id>juno</id>
 					<layout>p2</layout>
-					<url>http://download.eclipse.org/releases/indigo</url>
+					<url>http://download.eclipse.org/releases/juno</url>
 				</repository>
 			</repositories>
 		</profile>
