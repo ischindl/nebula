@@ -166,7 +166,7 @@ public abstract class AbstractCombo extends Composite {
 	}
 
 	static int checkStyle (int style) {
-		int mask = SWT.BORDER | SWT.READ_ONLY | SWT.FLAT | SWT.LEFT_TO_RIGHT | SWT.RIGHT_TO_LEFT;
+		int mask = DateChooser.COMP.getComboSupportedStyle();
 		return SWT.NO_FOCUS | (style & mask);
 	}
 
@@ -304,6 +304,7 @@ public abstract class AbstractCombo extends Composite {
 	protected void comboEvent(Event event) {
 		switch (event.type) {
 			case SWT.Dispose : {
+				removeListener(SWT.FocusIn, listener);
 				removeListener(SWT.Dispose, listener);
 				notifyListeners(SWT.Dispose, event);
 				event.type = SWT.None;
@@ -377,7 +378,7 @@ public abstract class AbstractCombo extends Composite {
 	 */
 	public void copy() {
 		checkWidget();
-		text.copy();
+		DateChooser.API.copy(text);
 	}
 
 	/**
@@ -451,7 +452,7 @@ public abstract class AbstractCombo extends Composite {
 	 */
 	public void cut() {
 		checkWidget();
-		text.cut();
+		DateChooser.API.cut(text);
 	}
 
 	/**
@@ -708,7 +709,7 @@ public abstract class AbstractCombo extends Composite {
 	 */
 	public void paste() {
 		checkWidget();
-		text.paste();
+		DateChooser.API.paste(text);
 	}
 
 	/**
@@ -792,7 +793,7 @@ public abstract class AbstractCombo extends Composite {
 	public void removeModifyListener(ModifyListener listener) {
 		checkWidget();
 		if ( listener == null ) SWT.error(SWT.ERROR_NULL_ARGUMENT);
-		removeListener(SWT.Modify, listener);	
+		DateChooser.API.removeModifyListener(this, listener);
 	}
 
 	/**
@@ -813,8 +814,7 @@ public abstract class AbstractCombo extends Composite {
 	public void removeSelectionListener(SelectionListener listener) {
 		checkWidget();
 		if ( listener == null ) SWT.error(SWT.ERROR_NULL_ARGUMENT);
-		removeListener(SWT.Selection, listener);
-		removeListener(SWT.DefaultSelection,listener);	
+		DateChooser.API.removeSelectionListener(this, listener);
 	}
 
 	/**
@@ -835,7 +835,7 @@ public abstract class AbstractCombo extends Composite {
 	public void removeVerifyListener(VerifyListener listener) {
 		checkWidget();
 		if ( listener == null ) SWT.error(SWT.ERROR_NULL_ARGUMENT);
-		removeListener(SWT.Verify, listener);
+		DateChooser.API.removeVerifyListener(this, listener);
 	}
 
 	/**
@@ -1099,28 +1099,7 @@ public abstract class AbstractCombo extends Composite {
 				break;
 			}
 			case SWT.Traverse : {
-				switch ( event.detail ) {
-					case SWT.TRAVERSE_ARROW_PREVIOUS:
-					case SWT.TRAVERSE_ARROW_NEXT:
-						// The enter causes default selection and
-						// the arrow keys are used to manipulate the list contents so
-						// do not use them for traversal.
-						event.doit = false;
-						break;
-					case SWT.TRAVERSE_TAB_PREVIOUS:
-						event.doit = traverse(SWT.TRAVERSE_TAB_PREVIOUS);
-						event.detail = SWT.TRAVERSE_NONE;
-						return;
-				}		
-				Event e = new Event ();
-				e.time = event.time;
-				e.detail = event.detail;
-				e.doit = event.doit;
-				e.character = event.character;
-				e.keyCode = event.keyCode;
-				notifyListeners(SWT.Traverse, e);
-				event.doit = e.doit;
-				event.detail = e.detail;
+				DateChooser.COMP.comboTextTraverseEvent(this, event);
 				break;
 			}
 		}

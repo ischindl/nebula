@@ -13,6 +13,7 @@ package org.eclipse.nebula.widgets.datechooser;
 import java.util.Date;
 import java.util.Locale;
 
+import org.eclipse.nebula.widgets.datechooser.internal.DateChooserThemeProvider;
 import org.eclipse.nebula.widgets.formattedtext.DateFormatter;
 import org.eclipse.nebula.widgets.formattedtext.DefaultFormatterFactory;
 import org.eclipse.nebula.widgets.formattedtext.FormattedText;
@@ -26,7 +27,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
 /**
@@ -46,12 +46,6 @@ import org.eclipse.swt.widgets.Text;
  * </dl>
  */
 public class DateChooserCombo extends AbstractCombo {
-	/** Default image filename */
-	protected static final String IMAGE = "/org/eclipse/nebula/widgets/datechooser/DateChooserCombo.png";
-
-	/** Default image for the button */
-	protected static Image buttonImage;
-
 	/** FormattedText widget for edition of the date */
 	protected FormattedText formattedText;
 	/** Flag to set footer visible or not in the popup */
@@ -64,11 +58,6 @@ public class DateChooserCombo extends AbstractCombo {
 	protected DateChooserTheme theme;
 	/** Locale used for localized names and formats */
 	protected Locale locale;
-
-	static {
-		buttonImage = new Image(Display.getCurrent(),
-		                        DateChooserCombo.class.getResourceAsStream(IMAGE));
-	}
 
 	/**
    * Constructs a new instance of this class given its parent and a style value
@@ -83,7 +72,7 @@ public class DateChooserCombo extends AbstractCombo {
 	public DateChooserCombo(Composite parent, int style) {
     super(parent, style);
 		setTheme(DateChooserTheme.getDefaultTheme());
-		setImage(buttonImage);
+		setImage(DateChooserThemeProvider.getInstance().getChooserImage());
     setCreateOnDrop(true);
 		pack();
 	}
@@ -202,7 +191,9 @@ public class DateChooserCombo extends AbstractCombo {
 	 */
 	protected Text createTextControl(int style) {
     formattedText = new FormattedText(this, SWT.NONE);
-    formattedText.setFormatter(DefaultFormatterFactory.createFormatter(Date.class));
+    DateFormatter formatter=(DateFormatter) DefaultFormatterFactory.createFormatter(Date.class);
+    formatter.setLocale(DateChooser.API.getLocale());
+    formattedText.setFormatter(formatter);
     return formattedText.getControl();
 	}
 
@@ -229,7 +220,7 @@ public class DateChooserCombo extends AbstractCombo {
 			 * focus until the user click into it with the mouse. Then the keyboard
 			 * is unusable.
 			 */
-			popupContent.traverse(SWT.TRAVERSE_TAB_NEXT);
+			DateChooser.API.traverse(popupContent,SWT.TRAVERSE_TAB_NEXT);
 		}
 	}
 

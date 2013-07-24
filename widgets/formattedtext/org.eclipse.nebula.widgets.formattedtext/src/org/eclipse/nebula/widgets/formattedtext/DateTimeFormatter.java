@@ -140,6 +140,10 @@ public class DateTimeFormatter extends AbstractFormatter {
   protected Listener modifyFilter;
   /** The Locale used by this formatter */
   protected Locale locale;
+  
+  private static final String RAP_ACTIVE_KEYS = "org.eclipse.rap.rwt.activeKeys";
+  private static final String[] KEYS_TO_FILTER = new String[]{"ARROW_UP","ARROW_DOWN"};
+  private static final String RAP_CANCEL_KEYS = "org.eclipse.rap.rwt.cancelKeys";
 
   private class FieldDesc {
   	/** Time field in Calendar */
@@ -692,9 +696,11 @@ public class DateTimeFormatter extends AbstractFormatter {
    * 
    * @param txt String of characters to insert
    * @param p Starting position of insertion
+   * @param isRapBehavior if <code>true</code> expect to parse the whole text, this parameter has been introduce 
+   *      to keep existing RCP behavior
    * @return New position of the cursor
    */
-	private int insert(String txt, int p) {
+	private int insert(String txt, int p, boolean isRapBehavior) {
 		FieldDesc fd = null;
 		int i = 0, from = 0, t;
     char c, m, o;
@@ -708,7 +714,7 @@ public class DateTimeFormatter extends AbstractFormatter {
   				p++;
   				fd = null;
   				continue;
-  			}
+  			} 
       } else {
       	m = inputMask.charAt(inputMask.length() - 1);
       }
@@ -731,8 +737,10 @@ public class DateTimeFormatter extends AbstractFormatter {
 					inputMask.insert(p, inputMask.charAt(fd.pos));
 					fd.curLen++;
 				} else {
-					beep();
-					return p;
+					if(!isRapBehavior){
+						beep();
+						return p;
+					}
 				}
 //				if ( ! updateFieldValue(fd, p < fd.pos + fd.curLen - 1) ) {
 				if ( ! updateFieldValue(fd, true) ) {
@@ -743,8 +751,10 @@ public class DateTimeFormatter extends AbstractFormatter {
 						inputMask.deleteCharAt(p);
 						fd.curLen--;
 					}
-					beep();
-					return p;
+					if(!isRapBehavior){
+						beep();
+						return p;
+					}
 				}
 				i++;
 				p++;
@@ -757,8 +767,10 @@ public class DateTimeFormatter extends AbstractFormatter {
 				} else if ( Character.toLowerCase(c) == Character.toLowerCase(ampm[1].charAt(0)) ) {
 					t = 1;
 				} else {
-					beep();
-					return p;
+					if(!isRapBehavior){
+						beep();
+						return p;
+					}
 				}
 				inputCache.replace(fd.pos, fd.pos + fd.curLen, ampm[t]);
 				while ( fd.curLen < ampm[t].length() ) {
@@ -773,14 +785,26 @@ public class DateTimeFormatter extends AbstractFormatter {
 				i++;
 				p = fd.pos + fd.curLen;
 			} else {
-				t = fd.pos + fd.curLen;
-				if ( t < inputCache.length() && c == inputCache.charAt(t) && i == txt.length() - 1 ) {
-					p = getNextFieldPos(fd);
+				if(isRapBehavior){
+					t = fd.pos + fd.curLen;
+					if ( t < inputCache.length() && c == inputCache.charAt(t)){
+						//empty consecutive field
+						p = getNextFieldPos(fd);
+						fd = null;
+					} else {
+						p++;
+					}
+					i++;
 				} else {
-					beep();
+					t = fd.pos + fd.curLen;
+					if ( t < inputCache.length() && c == inputCache.charAt(t) && i == txt.length() - 1 ) {
+						p = getNextFieldPos(fd);
+					} else {
+						beep();
+					}
+					return p;
 				}
-				return p;
-			}
+			} 
 		}
 		if ( fd != null && p == fd.pos + fd.curLen && fd.curLen == fd.maxLen ) {
 			p = getNextFieldPos(fd);
@@ -924,6 +948,8 @@ public class DateTimeFormatter extends AbstractFormatter {
    */
 	public void setText(Text text) {
 		super.setText(text);
+		text.setData(RAP_ACTIVE_KEYS,KEYS_TO_FILTER);
+		text.setData(RAP_CANCEL_KEYS,KEYS_TO_FILTER);
 		text.addKeyListener(klistener);
 		text.addFocusListener(flistener);
 	}
@@ -1038,7 +1064,22 @@ public class DateTimeFormatter extends AbstractFormatter {
 		}
 		return true;
 	}
+	
+	/**
+	 *as RAP set the whole text, caret position is always at the end,
+	 *instead we give first empty field, or the end if none us empty
+	 *this is not perfect, but better
+	 */
+	private int getCaretPosition(int end) {
+		for (int i = 0; i < fieldCount; i++) {
 
+			if (fields[i].empty) {
+				return fields[i].pos;
+			}
+		}
+		return end;
+	}
+	
   /**
    * Handles a <code>VerifyEvent</code> sent when the text is about to be modified.
    * This method is the entry point of all operations of formatting.
@@ -1046,15 +1087,27 @@ public class DateTimeFormatter extends AbstractFormatter {
    * @see org.eclipse.swt.events.VerifyListener#verifyText(org.eclipse.swt.events.VerifyEvent)
    */
 	public void verifyText(VerifyEvent e) {
-  	if ( ignore ) {
-      return;
-    }
-  	e.doit = false;
-  	if ( e.keyCode == SWT.BS || e.keyCode == SWT.DEL ) {
-  		clear(e.start, e.end);
-  	} else {
-  		e.start = insert(e.text, e.start);
-  	}
-  	updateText(inputCache.toString(), e.start);
-	}
+	  	if ( ignore ) {
+	      return;
+	    }
+	  	e.doit = false;
+	  	int pos=e.start;
+	  	if ( e.keyCode == SWT.BS || e.keyCode == SWT.DEL ) {
+	  		clear(e.start, e.end);
+	  	} else {
+	  		String oldText = text.getText();
+	  		if(e.keyCode == 0 && e.start == 0 && e.end == oldText.length()){
+	  			// this is executed in RAP, in order to avoid to many http communication, rap keys event are "batched" 
+	  			// so the whole text is updated, instead of doing it keys per keys like in RCP 
+	  			if(e.text.length()<oldText.length()){
+	  				clear(e.start,e.end);
+	  			} 
+	  			pos = insert(e.text,0,true);
+	  			pos=getCaretPosition(pos);
+	  		} else {
+	  			e.start = insert(e.text, e.start,false);
+	  		}
+	  	}
+	  	updateText(inputCache.toString(), pos);
+		}
 }

@@ -58,13 +58,13 @@ public class DateChooserComboExampleTab extends AbstractExampleTab {
 	private void applyTheme() {
 		switch ( themes.getSelectionIndex() ) {
 			case 0:
-				chooserCombo.setTheme(DateChooserTheme.GRAY);
+				chooserCombo.setTheme(DateChooserTheme.gray());
 				break;
 			case 1:
-				chooserCombo.setTheme(DateChooserTheme.BLUE);
+				chooserCombo.setTheme(DateChooserTheme.blue());
 				break;
 			case 2:
-				chooserCombo.setTheme(DateChooserTheme.YELLOW);
+				chooserCombo.setTheme(DateChooserTheme.yellow());
 				break;
 		} 
 	}
