@@ -221,4 +221,32 @@ public class DateFormatterWeek extends DateFormatter {
 	public String getDisplayString() {
 		return isValid() ? ((CalendarWeek)calendar).format() : getEditString();
 	}
+
+	/**
+	 * Checks if a given char is valid for the edit pattern. This method
+	 * overrides the parent method, restricting authorized chars to date patterns.
+	 *
+	 * @param c pattern char
+	 * @throws IllegalArgumentException if not valid
+	 * @see DateTimeFormatter#isValidCharPattern(char)
+	 */
+	protected void isValidCharPattern(char c) {
+		switch (c) {
+			case 'H' :
+			case 'h' :
+			case 'm' :
+			case 's' :
+			case 'S' :
+			case 'D' :
+			case 'G' :
+			case 'F' :
+			case 'E' :
+			case 'k' :
+			case 'K' :
+			case 'z' :
+			case 'Z' :
+				throw new IllegalArgumentException("Invalid date pattern : " + c);
+		}
+	}
+
 }
