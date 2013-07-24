@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DateChooser RCP fragment
-Bundle-SymbolicName: org.eclipse.nebula.widget.datechooser.rcp
+Bundle-SymbolicName: org.eclipse.nebula.widgets.datechooser.rcp
 Bundle-Version: 1.0.0.qualifier
 Fragment-Host: org.eclipse.nebula.widgets.datechooser;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: J2SE-1.4

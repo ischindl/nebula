@@ -419,7 +419,7 @@ public class CDateTime extends BaseCombo {
 	 * If style is neither SIMPLE or DROP_DOWN, then this method simply returns,
 	 * otherwise it creates the picker.
 	 */
-	private void createPicker() {
+	protected void createPicker() {
 		if (isSimple()) {
 			pickerPanel = panel;
 			setContent(panel.getComposite());
@@ -1150,7 +1150,7 @@ public class CDateTime extends BaseCombo {
 								separator[activeField + 1])) {
 					fieldNext();
 				} else if (!hasSelection()
-						&& String.valueOf(event.character).matches("[0-9]")) {
+						&& String.valueOf(event.character).matches("[0-9]")) { //$NON-NLS-1$
 					fieldAdjust(0);
 					fieldFirst();
 				}

@@ -145,7 +145,7 @@ public class DateTimeFormatter extends AbstractFormatter {
   private static final String[] KEYS_TO_FILTER = new String[]{"ARROW_UP","ARROW_DOWN"};
   private static final String RAP_CANCEL_KEYS = "org.eclipse.rap.rwt.cancelKeys";
 
-  private class FieldDesc {
+  protected class FieldDesc {
   	/** Time field in Calendar */
   	int field;
   	/** Minimum length of the field in chars */

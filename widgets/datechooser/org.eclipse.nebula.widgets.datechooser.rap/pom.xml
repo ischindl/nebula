@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>nebula-parent</artifactId>
+		<groupId>org.eclipse.nebula</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../../../releng/org.eclipse.nebula.nebula-parent</relativePath>
+	</parent>
+
+	<groupId>org.eclipse.nebula</groupId>
+	<artifactId>org.eclipse.nebula.widgets.datechooser.rap</artifactId>
+	<version>1.0.1-SNAPSHOT</version>
+	<packaging>eclipse-plugin</packaging>
+	<properties>
+		<localp2_dir>/home/schindler/ssd/workspace/ifana_maven/common</localp2_dir>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<resolver>p2</resolver>
+					<dependency-resolution>
+						<optionalDependencies>ignore</optionalDependencies>
+						<extraRequirements>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.rap.rwt</id>
+								<versionRange>2.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.rap.ui</id>
+								<versionRange>2.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-plugin</type>
+								<id>org.eclipse.rap.jface</id>
+								<versionRange>2.0.0</versionRange>
+							</requirement>
+						</extraRequirements>
+					</dependency-resolution>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>rap-2.0-build</id>
+			<layout>p2</layout>
+			<!-- <url>http://download.eclipse.org/rt/rap/2.0/</url> -->
+			<url>file://${gitdir}/org.eclipse.rap/releng/org.eclipse.rap.build/repository/target/repository</url>
+		</repository>
+		<!-- <repository> <id>rap-nightly-incubator-build</id> <layout>p2</layout>
+			<url>http://download.eclipse.org/rt/rap/incubator/nightly/</url> </repository> -->
+		<repository>
+			<id>ifana</id>
+			<layout>p2</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+			<url>file://${localp2_dir}/p2-site/target/repository</url>
+		</repository>
+		<repository>
+			<id>eclipse-platform-43</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/eclipse/updates/4.3milestones</url>
+		</repository>
+		<repository>
+			<id>eclipse-platform</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/juno</url>
+		</repository>
+	</repositories>
+</project>
