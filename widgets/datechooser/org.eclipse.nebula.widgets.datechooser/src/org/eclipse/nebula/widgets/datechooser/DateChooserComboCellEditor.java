@@ -13,7 +13,6 @@ package org.eclipse.nebula.widgets.datechooser;
 import java.util.Date;
 
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.nebula.widgets.datechooser.DateChooserCombo;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -75,11 +74,13 @@ public class DateChooserComboCellEditor extends CellEditor {
 					case SWT.FocusOut :
 						DateChooserComboCellEditor.this.focusLost();
 						break;
-				}				
+				}
 			}
 		};
 		combo.addListener(SWT.Traverse, listener);
 		combo.addListener(SWT.FocusOut, listener);
+
+		afterCreateCombo(combo);
 
 		return combo;
 	}
@@ -112,6 +113,8 @@ public class DateChooserComboCellEditor extends CellEditor {
    */
 	protected void doSetValue(Object value) {
 		if ( combo == null || combo.isDisposed() ) SWT.error(SWT.ERROR_WIDGET_DISPOSED);
+		if (value == null)
+			combo.setValue(null);
 		if ( value instanceof Date ) {
 			combo.setValue((Date) value);
 		}
@@ -120,7 +123,7 @@ public class DateChooserComboCellEditor extends CellEditor {
 	/**
 	 * Returns the wrapped DateChooserCombo widget. This allows to customize the
 	 * display of the DateChooser in the popup.
-	 * 
+	 *
 	 * @return the wrapped combo
 	 */
 	public DateChooserCombo getCombo() {
@@ -145,5 +148,12 @@ public class DateChooserComboCellEditor extends CellEditor {
 			layoutData.minimumWidth = 60;
 		}
 		return layoutData;
+	}
+
+	/** call before createControl ends
+	 * @param combo
+	 */
+	public void afterCreateCombo(DateChooserCombo combo){
+
 	}
 }

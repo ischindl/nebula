@@ -9,11 +9,11 @@ import java.util.TimeZone;
 
 public class CalendarWeek extends GregorianCalendar {
 
-	public static CalendarWeek getInstance() {
+	public static Calendar getInstance() {
 		return new CalendarWeek();
 	}
 
-	public static CalendarWeek getInstance(Locale loc) {
+	public static Calendar getInstance(Locale loc) {
 		return new CalendarWeek(loc);
 	}
 
