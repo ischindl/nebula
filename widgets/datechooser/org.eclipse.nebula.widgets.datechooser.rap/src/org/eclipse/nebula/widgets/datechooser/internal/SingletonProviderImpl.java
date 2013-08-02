@@ -1,9 +1,9 @@
 /**
- * 
+ *
  */
 package org.eclipse.nebula.widgets.datechooser.internal;
 
-import org.eclipse.rwt.SessionSingletonBase;
+import org.eclipse.rap.rwt.SessionSingletonBase;
 
 
 /**

@@ -1,12 +1,12 @@
 /**
- * 
+ *
  */
 package org.eclipse.nebula.widgets.datechooser.internal;
 
 import java.util.Locale;
 
 import org.eclipse.nebula.widgets.datechooser.DateChooser;
-import org.eclipse.rwt.RWT;
+import org.eclipse.rap.rwt.RWT;
 
 /**
  * RAP implementation

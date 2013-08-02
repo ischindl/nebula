@@ -99,7 +99,8 @@
 				<version>${tycho-version}</version>
 				<configuration>
 					<useUIHarness>true</useUIHarness>
-					<argLine>${tycho.testArgLine} -Xmx512m -Djava.awt.headless=true	${tests.vmargs}</argLine>
+					<argLine>${tycho.testArgLine} -Xmx512m -Djava.awt.headless=true
+						${tests.vmargs}</argLine>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -119,6 +120,15 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.7</version>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

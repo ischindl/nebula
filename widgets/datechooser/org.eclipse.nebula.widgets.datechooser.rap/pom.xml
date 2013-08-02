@@ -54,8 +54,7 @@
 		<repository>
 			<id>rap-2.0-build</id>
 			<layout>p2</layout>
-			<!-- <url>http://download.eclipse.org/rt/rap/2.0/</url> -->
-			<url>file://${gitdir}/org.eclipse.rap/releng/org.eclipse.rap.build/repository/target/repository</url>
+			<url>http://download.eclipse.org/rt/rap/2.1/</url>
 		</repository>
 		<!-- <repository> <id>rap-nightly-incubator-build</id> <layout>p2</layout>
 			<url>http://download.eclipse.org/rt/rap/incubator/nightly/</url> </repository> -->
@@ -70,17 +69,17 @@
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
-			<url>file://${localp2_dir}/p2-site/target/repository</url>
+			<url>http://www.progis.sk/p2site</url>
 		</repository>
 		<repository>
 			<id>eclipse-platform-43</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.3milestones</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.3</url>
 		</repository>
 		<repository>
 			<id>eclipse-platform</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/juno</url>
+			<url>http://download.eclipse.org/releases/kepler</url>
 		</repository>
 	</repositories>
 </project>
