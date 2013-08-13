@@ -96,8 +96,21 @@ public class CalendarWeek extends GregorianCalendar {
 	}
 
 	protected void init() {
-		setMinimalDaysInFirstWeek(7);
+		setMinimalDaysInFirstWeek(getMinimalDays());
 		setFirstDayOfWeek(Calendar.MONDAY);
+	}
+
+	private int getMinimalDays() {
+		int minimalDays = 7;
+		
+		String minimalDaysProperty = System.getProperty("minimal.days.in.first.week");
+		if (minimalDaysProperty != null && !"".equals(minimalDaysProperty));
+		try {
+			minimalDays = Integer.parseInt(minimalDaysProperty);
+		} catch (NumberFormatException e) {
+		}
+		
+		return minimalDays;
 	}
 
 	public boolean isCorrectWeek() {
