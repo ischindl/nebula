@@ -50,6 +50,7 @@
 
 	<properties>
 		<tycho-version>0.18.1</tycho-version>
+		<tycho-extras-version>0.18.1</tycho-extras-version>
 		<mockito-version>1.8.4</mockito-version>
 		<junit-version>4.8.1</junit-version>
 		<signer-input-directory>/home/data/httpd/download-staging.priv/technology/nebula</signer-input-directory>
@@ -328,6 +329,31 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-assembly-plugin</artifactId>
 					<version>2.2-beta-4</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-packaging-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.tycho.extras</groupId>
+							<artifactId>tycho-buildtimestamp-jgit</artifactId>
+							<version>${tycho-extras-version}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<timestampProvider>jgit</timestampProvider>
+						<jgit.ignore>
+							pom.xml
+						</jgit.ignore>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-p2-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<!-- <configuration> <baselineRepositories> <repository> <url>[some
+						url]</url> </repository> </baselineRepositories> </configuration> -->
 				</plugin>
 			</plugins>
 		</pluginManagement>
