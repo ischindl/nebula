@@ -15,6 +15,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
+		<tycho-extras-version>0.18.1</tycho-extras-version>
 		<download-publish-path>/home/data/httpd/download.eclipse.org/technology/nebula/snapshot</download-publish-path>
 	</properties>
 
@@ -50,4 +51,29 @@
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../org.eclipse.nebula.nebula-parent</relativePath>
 	</parent>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-packaging-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.tycho.extras</groupId>
+							<artifactId>tycho-buildtimestamp-jgit</artifactId>
+							<version>${tycho-extras-version}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<timestampProvider>jgit</timestampProvider>
+						<jgit.ignore>
+							pom.xml
+						</jgit.ignore>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-p2-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<!-- <configuration> <baselineRepositories> <repository> <url>[some
+						url]</url> </repository> </baselineRepositories> </configuration> -->
 </project>

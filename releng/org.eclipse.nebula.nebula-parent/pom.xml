@@ -101,7 +101,7 @@
                             <includes>
                                 <include>*.nebula.*</include>
                             </includes>
-                            <!-- Append allows all reports from all executions to be stored in 
+                            <!-- Append allows all reports from all executions to be stored in
                                 a single file -->
                             <append>true</append>
                         </configuration>
@@ -151,6 +151,24 @@
 
         <pluginManagement>
             <plugins>
+<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-packaging-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.tycho.extras</groupId>
+							<artifactId>tycho-buildtimestamp-jgit</artifactId>
+							<version>${tycho-extras-version}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<timestampProvider>jgit</timestampProvider>
+						<jgit.ignore>
+							pom.xml
+						</jgit.ignore>
+					</configuration>
+				</plugin>
                 <plugin>
                     <groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-packaging-plugin</artifactId>
@@ -185,7 +203,7 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <!-- TODO remove workaround when https://issues.sonatype.org/browse/TYCHO-473 
+                    <!-- TODO remove workaround when https://issues.sonatype.org/browse/TYCHO-473
                         is fixed -->
                     <groupId>org.eclipse.tycho</groupId>
                     <artifactId>tycho-source-plugin</artifactId>
@@ -285,11 +303,6 @@
         </profile>
 
         <profile>
-            <id>kepler</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        <profile>
             <id>platform-juno</id>
             <repositories>
                 <repository>
@@ -324,6 +337,7 @@
                     <url>http://download.eclipse.org/eclipse/updates/4.3/</url>
                 </repository>
             </repositories>
+
         </profile>
 
         <profile>
