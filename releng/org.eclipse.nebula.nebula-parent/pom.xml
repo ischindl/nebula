@@ -265,7 +265,28 @@
                     <layout>p2</layout>
                     <url>http://download.eclipse.org/releases/juno</url>
                 </repository>
->>>>>>> 545e698... Moving the build to CBI-signing
+
+                <repository>
+                    <id>platform</id>
+                    <layout>p2</layout>
+                    <url>http://download.eclipse.org/eclipse/updates/4.2/</url>
+                </repository>
+            </repositories>
+        </profile>
+
+        <profile>
+            <id>kepler</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        <profile>
+            <id>platform-juno</id>
+            <repositories>
+                <repository>
+                    <id>eclipse-platform</id>
+                    <layout>p2</layout>
+                    <url>http://download.eclipse.org/releases/juno</url>
+                </repository>
 
                 <repository>
                     <id>platform</id>
