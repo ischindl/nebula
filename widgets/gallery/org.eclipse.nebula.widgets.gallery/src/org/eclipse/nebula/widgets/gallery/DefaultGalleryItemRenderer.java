@@ -37,8 +37,8 @@ import org.eclipse.swt.widgets.Display;
  * <li>org.eclipse.nebula.widget.gallery.bottomRightOverlay</li>
  * <li>org.eclipse.nebula.widget.gallery.topLeftOverlay</li>
  * <li>org.eclipse.nebula.widget.gallery.topRightOverlay</li>
- *</ul>
- *<p>
+ * </ul>
+ * <p>
  * Supported types are org.eclipse.swt.Image for one single decorator and
  * org.eclipse.swt.Image[] for multiple decorators.
  * </p>
@@ -55,7 +55,7 @@ public class DefaultGalleryItemRenderer extends AbstractGalleryItemRenderer {
 	/**
 	 * Stores colors used in drop shadows
 	 */
-	protected ArrayList dropShadowsColors = new ArrayList();
+	protected ArrayList<Color> dropShadowsColors = new ArrayList<Color>();
 
 	// Renderer parameters
 	boolean dropShadows = false;
@@ -77,10 +77,10 @@ public class DefaultGalleryItemRenderer extends AbstractGalleryItemRenderer {
 	int selectionRadius = 15;
 
 	// Vars used during drawing (optimization)
-	private boolean _drawBackground = false;
-	private Color _drawBackgroundColor = null;
-	private Image _drawImage = null;
-	private Color _drawForegroundColor = null;
+	protected boolean _drawBackground = false;
+	protected Color _drawBackgroundColor = null;
+	protected Image _drawImage = null;
+	protected Color _drawForegroundColor = null;
 
 	/**
 	 * Returns current label state : enabled or disabled
@@ -277,7 +277,7 @@ public class DefaultGalleryItemRenderer extends AbstractGalleryItemRenderer {
 
 	}
 
-	private void createColors() {
+	protected void createColors() {
 		if (dropShadowsSize > 0) {
 			int step = 125 / dropShadowsSize;
 			// Create new colors

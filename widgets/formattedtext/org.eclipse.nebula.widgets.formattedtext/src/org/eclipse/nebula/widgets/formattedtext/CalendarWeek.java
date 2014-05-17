@@ -9,6 +9,8 @@ import java.util.TimeZone;
 
 public class CalendarWeek extends GregorianCalendar {
 
+	public static final String MINIMAL_DAYS_IN_FIRST_WEEK = "minimal.days.in.first.week";
+
 	public static Calendar getInstance() {
 		return new CalendarWeek();
 	}
@@ -96,8 +98,21 @@ public class CalendarWeek extends GregorianCalendar {
 	}
 
 	protected void init() {
-		setMinimalDaysInFirstWeek(7);
+		setMinimalDaysInFirstWeek(getMinimalDays());
 		setFirstDayOfWeek(Calendar.MONDAY);
+	}
+
+	private int getMinimalDays() {
+		int minimalDays = 7;
+
+		String minimalDaysProperty = System.getProperty(MINIMAL_DAYS_IN_FIRST_WEEK);
+		if (minimalDaysProperty != null && !"".equals(minimalDaysProperty));
+		try {
+			minimalDays = Integer.parseInt(minimalDaysProperty);
+		} catch (Exception e) {
+		}
+
+		return minimalDays;
 	}
 
 	public boolean isCorrectWeek() {

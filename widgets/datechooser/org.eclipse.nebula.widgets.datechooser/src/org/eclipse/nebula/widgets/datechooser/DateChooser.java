@@ -595,7 +595,7 @@ public class DateChooser extends Composite {
 		GridDataFactory.fillDefaults().applyTo(monthPanel);
 		monthPanel.addListener(SWT.MouseDown, listener);
 
-		prevMonth = API.createArrowButton(monthPanel, true, SWT.FLAT);
+		prevMonth = new Button(monthPanel, SWT.ARROW | SWT.LEFT | SWT.FLAT);
 		prevMonth.addListener(SWT.MouseUp, listener);
 		prevMonth.addListener(SWT.FocusIn, listener);
 
@@ -603,7 +603,7 @@ public class DateChooser extends Composite {
 		currentMonth.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		currentMonth.addListener(SWT.MouseDown, listener);
 
-		nextMonth = API.createArrowButton(monthPanel, false, SWT.FLAT);
+		nextMonth = new Button(monthPanel, SWT.ARROW | SWT.RIGHT | SWT.FLAT);
 		nextMonth.addListener(SWT.MouseUp, listener);
 		nextMonth.addListener(SWT.FocusIn, listener);
 
@@ -1542,6 +1542,11 @@ public class DateChooser extends Composite {
 
 		// Font
 		setFont(theme.font);
+
+		prevMonth.setBackground(theme.headerBackground);
+		prevMonth.setForeground(theme.headerForeground);
+		nextMonth.setBackground(theme.headerBackground);
+		nextMonth.setForeground(theme.headerForeground);
 
 		pack(true);
 		layout(true);
