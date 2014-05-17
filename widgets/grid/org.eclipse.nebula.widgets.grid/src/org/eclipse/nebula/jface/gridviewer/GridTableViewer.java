@@ -53,14 +53,14 @@ import org.eclipse.swt.widgets.Widget;
  * ITreeContentProvider} interface. Instead a {@link GridTreeViewer} should be
  * used.
  * <p>
- * 
+ *
  * @author Unknown...
  * @author Mirko Paturzo <mirko.paturzo@exeura.eu>
- * 
+ *
  * Mirko modified improve performace and reduce used memory
- * fix memory leak and slow disposed object 
+ * fix memory leak and slow disposed object
  */
-public class GridTableViewer extends AbstractTableViewer {
+public class GridTableViewer extends AbstractTableViewer implements IGridViewer{
 	/** This viewer's grid control. */
 	private final Grid grid;
 
@@ -80,7 +80,7 @@ public class GridTableViewer extends AbstractTableViewer {
 	 * <code>MULTI, H_SCROLL, V_SCROLL,</code> and <code>BORDER</code>. The
 	 * viewer has no input, no content provider, a default label provider, no
 	 * sorter, and no filters.
-	 * 
+	 *
 	 * @param parent
 	 *            the parent control
 	 */
@@ -93,7 +93,7 @@ public class GridTableViewer extends AbstractTableViewer {
 	 * parent. The grid control is created using the given SWT style bits. The
 	 * viewer has no input, no content provider, a default label provider, no
 	 * sorter, and no filters.
-	 * 
+	 *
 	 * @param parent
 	 *            the parent control
 	 * @param style
@@ -103,14 +103,14 @@ public class GridTableViewer extends AbstractTableViewer {
 		this(new Grid(dataVisualizer, parent, style));
 	}
 
-	
+
 	/**
 	 * Creates a grid viewer on a newly-created grid control under the given
 	 * parent. The grid control is created using the SWT style bits
 	 * <code>MULTI, H_SCROLL, V_SCROLL,</code> and <code>BORDER</code>. The
 	 * viewer has no input, no content provider, a default label provider, no
 	 * sorter, and no filters.
-	 * 
+	 *
 	 * @param parent
 	 *            the parent control
 	 */
@@ -123,7 +123,7 @@ public class GridTableViewer extends AbstractTableViewer {
 	 * parent. The grid control is created using the given SWT style bits. The
 	 * viewer has no input, no content provider, a default label provider, no
 	 * sorter, and no filters.
-	 * 
+	 *
 	 * @param parent
 	 *            the parent control
 	 * @param style
@@ -136,7 +136,7 @@ public class GridTableViewer extends AbstractTableViewer {
 	/**
 	 * Creates a grid viewer on the given grid control. The viewer has no input,
 	 * no content provider, a default label provider, no sorter, and no filters.
-	 * 
+	 *
 	 * @param grid
 	 *            the grid control
 	 */
@@ -147,7 +147,7 @@ public class GridTableViewer extends AbstractTableViewer {
 
 	/**
 	 * Returns the underlying Grid Control.
-	 * 
+	 *
 	 * @return grid control.
 	 */
 	public Grid getGrid() {
@@ -187,7 +187,7 @@ public class GridTableViewer extends AbstractTableViewer {
 	protected void doClearAll() {
 		grid.getDataVisualizer().clearAll();
 	}
-	
+
 	/**
 	 * @see org.eclipse.jface.viewers.StructuredViewer#refresh()
 	 */
@@ -281,7 +281,7 @@ public class GridTableViewer extends AbstractTableViewer {
 	protected void doRemoveAll() {
 		grid.removeAll();
 	}
-	
+
 	/**
 	 * (non-Javadoc)
 	 * @see org.eclipse.jface.viewers.AbstractTableViewer#handleDispose(org.eclipse.swt.events.DisposeEvent)
@@ -294,7 +294,7 @@ public class GridTableViewer extends AbstractTableViewer {
 
         cachedRow = null;
         rowHeaderLabelProvider = null;
-        
+
         getGrid().setRedraw(false);
         getGrid().disposeAllItems();
         getGrid().clearItems();
@@ -343,7 +343,7 @@ public class GridTableViewer extends AbstractTableViewer {
 
 	/** {@inheritDoc} */
 	@Override
-	protected ViewerRow getViewerRowFromItem(Widget item) {
+	public ViewerRow getViewerRowFromItem(Widget item) {
 		if (cachedRow == null) {
 			cachedRow = new GridViewerRow((GridItem) item);
 		} else {
@@ -423,7 +423,7 @@ public class GridTableViewer extends AbstractTableViewer {
 
 	/**
 	 * Label provider used by calculate the row header text
-	 * 
+	 *
 	 * @param rowHeaderLabelProvider
 	 *            the provider
 	 */
@@ -434,7 +434,7 @@ public class GridTableViewer extends AbstractTableViewer {
 
 	/**
 	 * Refresh row headers only
-	 * 
+	 *
 	 * @param element
 	 *            the element to start or <code>null</code> if all rows should
 	 *            be refreshed
@@ -497,12 +497,12 @@ public class GridTableViewer extends AbstractTableViewer {
 			CellSelection cellSelection = (CellSelection) selection;
 			List l = cellSelection.toList();
 			ArrayList pts = new ArrayList();
-			
+
 			for( int i = 0; i < grid.getItemCount(); i++ ) {
 				Iterator it = l.iterator();
 				Object itemObject = grid.getItem(i).getData();
 				while( it.hasNext() ) {
-					Object checkObject = it.next(); 
+					Object checkObject = it.next();
 					if( itemObject == checkObject || (getComparer() != null && getComparer().equals(itemObject, checkObject) ) ) {
 						Iterator idxIt = cellSelection.getIndices(checkObject).iterator();
 						while( idxIt.hasNext() ) {

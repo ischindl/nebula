@@ -8,7 +8,7 @@
  * Contributors:
  *    Michael Houston <schmeeky@gmail.com> - initial API and implementation
  *    Tom Schindl <tom.schindl@bestsolution.at> - bug fix in: 191216
- *******************************************************************************/ 
+ *******************************************************************************/
 package org.eclipse.nebula.jface.gridviewer;
 
 import java.util.Arrays;
@@ -47,11 +47,11 @@ import org.eclipse.swt.widgets.Widget;
  * {@link ITreeContentProvider} interface.
  * <p><b>The current implementation does not support lazy content providers.</b></p>
  */
-public class GridTreeViewer extends AbstractTreeViewer {
-	
+public class GridTreeViewer extends AbstractTreeViewer implements IGridViewer{
+
 	/** This viewer's grid control. */
 	private Grid grid;
-	
+
 	private GridViewerRow cachedRow;
 
 	/**
@@ -59,7 +59,7 @@ public class GridTreeViewer extends AbstractTreeViewer {
 	 * rows / GridItems are always sized to their preferred height.
 	 */
 	private boolean autoPreferredHeight = false;
-	
+
 	private CellLabelProvider rowHeaderLabelProvider;
 
 
@@ -69,8 +69,8 @@ public class GridTreeViewer extends AbstractTreeViewer {
      * <code>MULTI, H_SCROLL, V_SCROLL,</code> and <code>BORDER</code>. The
      * viewer has no input, no content provider, a default label provider, no
      * sorter, and no filters.
-     * 
-     * @param parent 
+     *
+     * @param parent
      * 				the parent control
      */
 	public GridTreeViewer(Composite parent) {
@@ -82,10 +82,10 @@ public class GridTreeViewer extends AbstractTreeViewer {
      * parent. The grid control is created using the given SWT style bits. The
      * viewer has no input, no content provider, a default label provider, no
      * sorter, and no filters.
-     * 
-     * @param parent 
+     *
+     * @param parent
      * 				the parent control
-     * @param style 
+     * @param style
      * 				the SWT style bits used to create the grid.
      */
 	public GridTreeViewer(Composite parent, int style) {
@@ -96,8 +96,8 @@ public class GridTreeViewer extends AbstractTreeViewer {
      * Creates a grid tree viewer on the given grid control. The viewer has no
      * input, no content provider, a default label provider, no sorter, and no
      * filters.
-     * 
-     * @param grid 
+     *
+     * @param grid
      * 				the grid control
      */
 	public GridTreeViewer(Grid grid) {
@@ -106,14 +106,14 @@ public class GridTreeViewer extends AbstractTreeViewer {
 	}
 
 	/**
-     * Returns the underlying {@link Grid} Control. 
-     * 
+     * Returns the underlying {@link Grid} Control.
+     *
      * @return grid control.
      */
 	public Grid getGrid() {
 		return grid;
 	}
-	
+
 	/** {@inheritDoc} */
 	protected Item getItemAt(Point point) {
 		return grid.getItem(point);
@@ -141,7 +141,7 @@ public class GridTreeViewer extends AbstractTreeViewer {
 		}
 		return null;
 	}
-	
+
 	/** {@inheritDoc} */
 	protected boolean getExpanded(Item item) {
 		return ((GridItem) item).isExpanded();
@@ -188,14 +188,14 @@ public class GridTreeViewer extends AbstractTreeViewer {
 
 	/**
 	 * Create a new ViewerRow at rowIndex
-	 * 
-	 * @param parent 
+	 *
+	 * @param parent
 	 * 				the parent row
-	 * @param style 
+	 * @param style
 	 * 				the style bits to use for the new row
-	 * @param rowIndex 
+	 * @param rowIndex
 	 * 				the index at which the new row should be created under the parent
-	 * @return ViewerRow 
+	 * @return ViewerRow
 	 * 				the new row
 	 */
 	private ViewerRow createNewRowPart(ViewerRow parent, int style, int rowIndex) {
@@ -214,7 +214,7 @@ public class GridTreeViewer extends AbstractTreeViewer {
 		return getViewerRowFromItem(new GridItem((GridItem) parent.getItem(),
 				SWT.NONE));
 	}
-	
+
 	/** {@inheritDoc} */
 	protected void removeAll(Control control) {
 		((Grid) control).removeAll();
@@ -224,7 +224,7 @@ public class GridTreeViewer extends AbstractTreeViewer {
 	protected void setExpanded(Item item, boolean expand) {
 		((GridItem) item).setExpanded(expand);
 	}
-	
+
 	/** {@inheritDoc} */
 	protected void setSelection(List items) {
 		Item[] current = getSelection(getGrid());
@@ -252,7 +252,7 @@ public class GridTreeViewer extends AbstractTreeViewer {
 	}
 
 	/** {@inheritDoc} */
-	protected ViewerRow getViewerRowFromItem(Widget item) {
+	public ViewerRow getViewerRowFromItem(Widget item) {
 		if (cachedRow == null) {
 			cachedRow = new GridViewerRow((GridItem) item);
 		} else {
@@ -301,7 +301,7 @@ public class GridTreeViewer extends AbstractTreeViewer {
 	 * properly if you use {@link GridViewerColumn} to create the
 	 * columns.
 	 * <p>
-	 * When this method is called, existing rows are not resized to their 
+	 * When this method is called, existing rows are not resized to their
 	 * preferred height.  Therefore it is suggested that this method be called
 	 * before rows are populated (i.e. before setInput).
 	 */
@@ -325,7 +325,7 @@ public class GridTreeViewer extends AbstractTreeViewer {
 		if(autoPreferredHeight && !item.isDisposed())
 			((GridItem)item).pack();
 	}
-	
+
 	/**
 	 * Removes the element at the specified index of the parent.  The selection is updated if required.
 	 *
@@ -389,10 +389,10 @@ public class GridTreeViewer extends AbstractTreeViewer {
 			}
 		});
 	}
-	
+
 	/**
 	 * Label provider used by calculate the row header text
-	 * 
+	 *
 	 * @param rowHeaderLabelProvider
 	 *            the provider
 	 */
@@ -400,7 +400,7 @@ public class GridTreeViewer extends AbstractTreeViewer {
 			CellLabelProvider rowHeaderLabelProvider) {
 		this.rowHeaderLabelProvider = rowHeaderLabelProvider;
 	}
-	
+
 	private void updateRowHeader(Widget widget) {
 		if (rowHeaderLabelProvider != null) {
 			ViewerCell cell = getViewerRowFromItem(widget).getCell(

@@ -40,9 +40,9 @@ public class GridViewerEditor extends ColumnViewerEditor {
      * The selection follows the editor
      */
     public static final int SELECTION_FOLLOWS_EDITOR = 1 << 30;
-    
+
     private boolean selectionFollowsEditor = false;
-    
+
 	GridViewerEditor(ColumnViewer viewer,
 			ColumnViewerEditorActivationStrategy editorActivationStrategy,
 			int feature) {
@@ -69,7 +69,7 @@ public class GridViewerEditor extends ColumnViewerEditor {
         gridEditor.grabHorizontal = layoutData.grabHorizontal;
         gridEditor.horizontalAlignment = layoutData.horizontalAlignment;
         gridEditor.minimumWidth = layoutData.minimumWidth;
-        
+
 		gridEditor.verticalAlignment = layoutData.verticalAlignment;
 
 		if (layoutData.minimumHeight != SWT.DEFAULT) {
@@ -102,11 +102,10 @@ public class GridViewerEditor extends ColumnViewerEditor {
 	}
 
 	private ViewerRow getViewerRowFromItem(GridItem item) {
-		if( getViewer() instanceof GridTableViewer ) {
-			return ((GridTableViewer)getViewer()).getViewerRowFromItem(item);
-		} else {
-			return ((GridTreeViewer)getViewer()).getViewerRowFromItem(item);
+		if( getViewer() instanceof IGridViewer ) {
+			return ((IGridViewer)getViewer()).getViewerRowFromItem(item);
 		}
+		return null;
 	}
 
 	/**
@@ -119,14 +118,14 @@ public class GridViewerEditor extends ColumnViewerEditor {
 				|| event.eventType == ColumnViewerEditorActivationEvent.TRAVERSAL) {
 			grid.setFocusColumn(grid.getColumn(focusCell.getColumnIndex()));
 			grid.setFocusItem((GridItem) focusCell.getItem());
-			
+
 			if( selectionFollowsEditor ) {
 				grid.setCellSelection(new Point(focusCell.getColumnIndex(),grid.indexOf((GridItem)focusCell.getItem())));
 			}
 		}
-				
+
 		grid.showColumn(grid.getColumn(focusCell.getColumnIndex()));
-		grid.showItem((GridItem) focusCell.getItem()); 
+		grid.showItem((GridItem) focusCell.getItem());
 	}
 
 	/**
@@ -135,21 +134,9 @@ public class GridViewerEditor extends ColumnViewerEditor {
 	 * @param editorActivationStrategy
 	 * @param feature
 	 */
-	public static void create(GridTableViewer viewer,
+	public static void create(IGridViewer viewer,
 			ColumnViewerEditorActivationStrategy editorActivationStrategy,
 			int feature) {
-		viewer.setColumnViewerEditor(new GridViewerEditor(viewer,editorActivationStrategy,feature));
-	}
-
-	/**
-	 * FIXME
-	 * @param viewer
-	 * @param editorActivationStrategy
-	 * @param feature
-	 */
-	public static void create(GridTreeViewer viewer,
-			ColumnViewerEditorActivationStrategy editorActivationStrategy,
-			int feature) {
-		viewer.setColumnViewerEditor(new GridViewerEditor(viewer,editorActivationStrategy,feature));
+		viewer.setColumnViewerEditor(new GridViewerEditor((ColumnViewer)viewer,editorActivationStrategy,feature));
 	}
 }
