@@ -9,7 +9,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.20.0</tycho-version>
+		<tycho-version>0.21.0</tycho-version>
 		<tycho-extras-version>${tycho-version}</tycho-extras-version>
 		<tests.vmargs></tests.vmargs>
 		<!-- Properties to enable jacoco code coverage analysis in Sonar -->
@@ -27,7 +27,7 @@
 
 	<build>
 		<plugins>
-		
+
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-packaging-plugin</artifactId>
@@ -121,7 +121,7 @@
 							<includes>
 								<include>*.nebula.*</include>
 							</includes>
-							<!-- Append allows all reports from all executions to be stored in 
+							<!-- Append allows all reports from all executions to be stored in
 								a single file -->
 							<append>true</append>
 						</configuration>
@@ -195,7 +195,7 @@
 					</configuration>
 				</plugin>
 				<plugin>
-					<!-- TODO remove workaround when https://issues.sonatype.org/browse/TYCHO-473 
+					<!-- TODO remove workaround when https://issues.sonatype.org/browse/TYCHO-473
 						is fixed -->
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-source-plugin</artifactId>
