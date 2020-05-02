@@ -464,7 +464,7 @@ public class CDateTime extends BaseCombo {
 	 * If style is neither SIMPLE or DROP_DOWN, then this method simply returns,
 	 * otherwise it creates the picker.
 	 */
-	private void createPicker() {
+	protected void createPicker() {
 		if (isSimple()) {
 			pickerPanel = panel;
 			setContent(panel.getComposite());

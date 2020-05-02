@@ -6,6 +6,10 @@ Bundle-Version: 1.2.0.qualifier
 Export-Package: org.eclipse.nebula.jface.tablecomboviewer,
  org.eclipse.nebula.widgets.tablecombo
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.eclipse.swt,
- org.eclipse.jface;resolution:=optional
 Bundle-Vendor: Eclipse.org
+Import-Package: org.eclipse.jface.viewers;resolution:=optional,
+ org.eclipse.swt,
+ org.eclipse.swt.accessibility,
+ org.eclipse.swt.events,
+ org.eclipse.swt.graphics,
+ org.eclipse.swt.widgets

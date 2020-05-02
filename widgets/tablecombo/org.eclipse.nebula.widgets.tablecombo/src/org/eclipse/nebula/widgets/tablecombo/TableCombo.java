@@ -112,6 +112,7 @@ public class TableCombo extends Composite {
 	private boolean closePupupAfterSelection = true;
 	private boolean selectOnEnter = true;
 	private boolean updateTextWithinSelection = true;
+	protected int tableStyle;
 
 	/**
 	 * Constructs a new instance of this class given its parent and a style value
@@ -146,10 +147,15 @@ public class TableCombo extends Composite {
 	 * @see SWT#FLAT
 	 * @see Widget#getStyle()
 	 */
-	public TableCombo(final Composite parent, final int style) {
+	public TableCombo(final Composite parent, int style) {
+		this(parent, style, SWT.SINGLE | SWT.V_SCROLL);
+	}
+
+	public TableCombo(final Composite parent, final int style, int tableStyle) {
 		super(parent, newStyle = checkStyle(style));
 		hasBorder = (style & SWT.BORDER) == SWT.BORDER;
 		// set the label style
+		this.tableStyle = tableStyle;
 		int textStyle = SWT.SINGLE;
 		if ((newStyle & SWT.READ_ONLY) != 0) {
 			textStyle |= SWT.READ_ONLY;
@@ -669,8 +675,14 @@ public class TableCombo extends Composite {
 		// create shell and table
 		popup = new Shell(getShell(), SWT.NO_TRIM | SWT.ON_TOP);
 
+		// set style
+		int style = getStyle();
+		if ((style & SWT.FLAT) != 0) tableStyle |= SWT.FLAT;
+		if ((style & SWT.RIGHT_TO_LEFT) != 0) tableStyle |= SWT.RIGHT_TO_LEFT;
+		if ((style & SWT.LEFT_TO_RIGHT) != 0) tableStyle |= SWT.LEFT_TO_RIGHT;
+
 		// create table
-		table = new Table(popup, SWT.SINGLE | SWT.FULL_SELECTION);
+		table = new Table(popup, tableStyle);
 
 		if (font != null) {
 			table.setFont(font);
@@ -1532,35 +1544,11 @@ public class TableCombo extends Composite {
 			break;
 		}
 		case SWT.MouseUp: {
-			if (event.button != 1) {
-				return;
-			}
-			if (closePupupAfterSelection) {
-				dropDown(false);
-			}
+			handleTableMouseUp(event);
 			break;
 		}
 		case SWT.Selection: {
-			final int index = table.getSelectionIndex();
-			if (index == -1) {
-				return;
-			}
-
-			// refresh the text.
-			refreshText(index);
-
-			// set the selection in the table.
-			table.setSelection(index);
-
-			final Event e = new Event();
-			e.time = event.time;
-			e.stateMask = event.stateMask;
-			e.doit = event.doit;
-			if (event.item != null) {
-				e.data = event.item.getData();
-			}
-			notifyListeners(SWT.Selection, e);
-			event.doit = e.doit;
+			handleTableSelection(event);
 			break;
 		}
 		case SWT.Traverse: {
@@ -1634,6 +1622,38 @@ public class TableCombo extends Composite {
 
 		}
 		}
+	}
+
+	void handleTableMouseUp(Event event) {
+		if (event.button != 1) {
+				return;
+		}
+		if (closePupupAfterSelection) {
+			dropDown(false);
+		}
+	}
+
+	void handleTableSelection(Event event) {
+		final int index = table.getSelectionIndex();
+		if (index == -1) {
+			return;
+		}
+
+		// refresh the text.
+		refreshText(index);
+
+		// set the selection in the table.
+		table.setSelection(index);
+
+		final Event e = new Event();
+		e.time = event.time;
+		e.stateMask = event.stateMask;
+		e.doit = event.doit;
+		if (event.item != null) {
+			e.data = event.item.getData();
+		}
+		notifyListeners(SWT.Selection, e);
+		event.doit = e.doit;
 	}
 
 	/**

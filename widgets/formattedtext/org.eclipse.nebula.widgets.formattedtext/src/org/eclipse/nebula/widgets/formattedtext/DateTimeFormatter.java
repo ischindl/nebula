@@ -5,7 +5,7 @@
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
  * https://www.eclipse.org/legal/epl-2.0/
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
@@ -144,7 +144,7 @@ public class DateTimeFormatter extends AbstractFormatter {
   /** The Locale used by this formatter */
   protected Locale locale;
 
-  private class FieldDesc {
+  class FieldDesc {
   	/** Time field in Calendar */
   	int field;
   	/** Minimum length of the field in chars */
