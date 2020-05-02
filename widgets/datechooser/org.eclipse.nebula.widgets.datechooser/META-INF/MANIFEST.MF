@@ -4,7 +4,8 @@ Bundle-Name: Nebula DateChooser Widget
 Bundle-SymbolicName: org.eclipse.nebula.widgets.datechooser
 Bundle-Version: 1.0.0.qualifier
 Export-Package: org.eclipse.nebula.widgets.datechooser
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8,
+ JavaSE-1.7
 Bundle-Vendor: Eclipse Nebula
 Import-Package: org.eclipse.core.databinding.observable,
  org.eclipse.core.databinding.observable.value,

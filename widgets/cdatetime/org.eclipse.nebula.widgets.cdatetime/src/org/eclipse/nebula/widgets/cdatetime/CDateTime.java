@@ -5,7 +5,7 @@
  * are made available under the terms of the Eclipse Public License 2.0
  * which accompanies this distribution, and is available at
  * https://www.eclipse.org/legal/epl-2.0/
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
@@ -80,7 +80,7 @@ import org.eclipse.swt.widgets.TypedListener;
  * <p>
  * Styles are set using the constants provided in the CDT class.
  * </p>
- * 
+ *
  * @see CDT
  */
 public class CDateTime extends BaseCombo {
@@ -103,7 +103,7 @@ public class CDateTime extends BaseCombo {
 		 * Adds a character if it is a digit; in case the field exceeds its
 		 * capacity, the oldest character is dropped from the buffer. Non-digits
 		 * are dropped.
-		 * 
+		 *
 		 * @param c
 		 * @return true if the new character is a digit and with its addition
 		 *         the active field reaches or exceeds its capacity, false
@@ -365,12 +365,12 @@ public class CDateTime extends BaseCombo {
 
 	Color pickerActiveDayColor, pickerInactiveDayColor, pickerTodayColor;
 	Color pickerMinutesColor, pickerMinutesBackgroundColor;
-	
+
 	/**
 	 * Constructs a new instance of this class given its parent and a style
 	 * value describing its behavior and appearance. The current date and the
 	 * system's default locale are used.
-	 * 
+	 *
 	 * @param parent
 	 *            a widget which will be the parent of the new instance (cannot
 	 *            be null)
@@ -393,7 +393,7 @@ public class CDateTime extends BaseCombo {
 	 * </p>
 	 * The event's data field will contain the newly selected Date object.<br>
 	 * The event's detail field will contain which Calendar Field was changed
-	 * 
+	 *
 	 * @param listener
 	 *            the listener which should be notified
 	 * @exception IllegalArgumentException
@@ -442,7 +442,7 @@ public class CDateTime extends BaseCombo {
 	 * If a field is being edited (via keyboard), set the edit value to the
 	 * active field of the calendar. Reset the count of the EditField so that a
 	 * subsequent key press will overwrite its contents;
-	 * 
+	 *
 	 * @return true if the commit was successfull (the value was valid for the
 	 *         field) or there was no commit to be made (editField is null),
 	 *         false otherwise
@@ -509,7 +509,7 @@ public class CDateTime extends BaseCombo {
 		if (pickerFont != null) {
 			pickerPanel.setFont(pickerFont);
 		}
-		
+
 		if (isDate) {
 			DatePicker dp = new DatePicker(this);
 			dp.setScrollable(scrollable);
@@ -721,7 +721,7 @@ public class CDateTime extends BaseCombo {
 	/**
 	 * Sets the active field to the next field; wraps if necessary and sets to
 	 * last field if there is no current active field
-	 * 
+	 *
 	 * @param If
 	 *            true, the text update will be asynchronous (for changes to
 	 *            text selection)
@@ -773,7 +773,7 @@ public class CDateTime extends BaseCombo {
 	/**
 	 * Sets the active field to the previous field; wraps if necessary and sets
 	 * to first field if there is no current active field
-	 * 
+	 *
 	 * @param If
 	 *            true, the text update will be asynchronous (for changes to
 	 *            text selection)
@@ -883,7 +883,7 @@ public class CDateTime extends BaseCombo {
 	 * Sets the given calendar field to the given value.<br>
 	 * <b>NOTE:</b> This is NOT the active field but a field in the "calendar"
 	 * variable.
-	 * 
+	 *
 	 * @param calendarField
 	 *            the field of calendar to set
 	 * @param value
@@ -986,7 +986,7 @@ public class CDateTime extends BaseCombo {
 	 * The data field is populated by {@link #getSelection()} and the detail
 	 * field holds the field which was changed.
 	 * </p>
-	 * 
+	 *
 	 * @param field
 	 *            the Calendar Field which caused the change, or -1 if
 	 *            <code>setTime</code> was called (thus setting all Calendar
@@ -1014,7 +1014,7 @@ public class CDateTime extends BaseCombo {
 	/**
 	 * Gets the calendar field corresponding to the active field, if there is
 	 * one.
-	 * 
+	 *
 	 * @return an int representing the calendar field, -1 if there isn't one.
 	 */
 	int getCalendarField() {
@@ -1047,7 +1047,7 @@ public class CDateTime extends BaseCombo {
 	 * </p>
 	 * Get a new instance of Calendar that is initialized with the timezone and
 	 * locale of this CDateTime, and set to the given date.
-	 * 
+	 *
 	 * @param date
 	 *            the date that the Calendar will be set to, or null for the
 	 *            current system time
@@ -1068,7 +1068,7 @@ public class CDateTime extends BaseCombo {
 	 * </p>
 	 * Get a new instance of Calendar that is initialized with the timezone and
 	 * locale of this CDateTime, and set to the given date.
-	 * 
+	 *
 	 * @param date
 	 *            the date, in millis, that the Calendar will be set to
 	 * @return a new instance of Calendar
@@ -1094,7 +1094,7 @@ public class CDateTime extends BaseCombo {
 
 	/**
 	 * The locale currently in use by this CDateTime.
-	 * 
+	 *
 	 * @return the locale
 	 * @see #setLocale(Locale)
 	 */
@@ -1107,7 +1107,7 @@ public class CDateTime extends BaseCombo {
 	 * that this will be equal to the default null text for the given locale
 	 * unless the null text has been explicitly set using
 	 * {@link #setNullText(String)}
-	 * 
+	 *
 	 * @return the text shown when the selection is null
 	 * @see #setNullText(String)
 	 */
@@ -1133,7 +1133,7 @@ public class CDateTime extends BaseCombo {
 	 * Get the pattern of this CDateTime as used to set its format. If the
 	 * format was NOT set using <code>setFormat(String)</code> this will return
 	 * <code>null</code>.
-	 * 
+	 *
 	 * @return the pattern, null if there isn't one
 	 * @see SimpleDateFormat
 	 * @see #setFormat(int)
@@ -1146,7 +1146,7 @@ public class CDateTime extends BaseCombo {
 	/**
 	 * Get the current selection of this CDateTime widget, or null if there is
 	 * no selection.
-	 * 
+	 *
 	 * @return the current selection
 	 */
 	public Date getSelection() {
@@ -1169,7 +1169,7 @@ public class CDateTime extends BaseCombo {
 
 	/**
 	 * The timezone currently in use by this CDateTime.
-	 * 
+	 *
 	 * @return the timezone
 	 * @see #setTimeZone(String)
 	 * @see #setTimeZone(TimeZone)
@@ -1180,7 +1180,7 @@ public class CDateTime extends BaseCombo {
 
 	/**
 	 * The Key event handler
-	 * 
+	 *
 	 * @param event
 	 *            the event
 	 */
@@ -1258,7 +1258,7 @@ public class CDateTime extends BaseCombo {
 	/**
 	 * The Travers event handler. Note that ARROW_UP and ARROW_DOWN are handled
 	 * in the <code>handleKey</code> method.
-	 * 
+	 *
 	 * @param event
 	 *            the event
 	 */
@@ -1331,7 +1331,7 @@ public class CDateTime extends BaseCombo {
 
 	/**
 	 * Determines if the given field number is backed by a real field.
-	 * 
+	 *
 	 * @param field
 	 *            the field number to check
 	 * @return true if the given field number corresponds to a field in the
@@ -1343,7 +1343,7 @@ public class CDateTime extends BaseCombo {
 
 	/**
 	 * Return true if this CDateTime has one or more dates selected;
-	 * 
+	 *
 	 * @return true if a date is selected, false otherwise
 	 */
 	public boolean hasSelection() {
@@ -1468,7 +1468,7 @@ public class CDateTime extends BaseCombo {
 	 * <li>{@link Calendar#DATE} -> 5
 	 * </ul>
 	 * e.g. the <i>highest</i> constant is the closing field.
-	 * 
+	 *
 	 * @param calendarField
 	 *            The calendar field identifying a pattern field
 	 * @return true if the highest pattern field
@@ -1494,7 +1494,7 @@ public class CDateTime extends BaseCombo {
 	/**
 	 * Removes the listener from the collection of listeners who will be
 	 * notified when the receiver's selection changes.
-	 * 
+	 *
 	 * @param listener
 	 *            the listener which should no longer be notified
 	 * @exception IllegalArgumentException
@@ -1536,7 +1536,7 @@ public class CDateTime extends BaseCombo {
 	/**
 	 * Sets the active field, which may or may not be a real field (it may also
 	 * be <code>FIELD_NONE</code>)
-	 * 
+	 *
 	 * @param field
 	 *            the field to be set active
 	 * @see CDateTime#hasField(int)
@@ -1557,7 +1557,7 @@ public class CDateTime extends BaseCombo {
 	 * Sets the builder that this CDateTime widget will use to build its
 	 * graphical selector to the given builder, or to a default builder if the
 	 * given builder is null.
-	 * 
+	 *
 	 * @param builder
 	 *            the builder to use, or null to use a default builder
 	 */
@@ -1574,7 +1574,7 @@ public class CDateTime extends BaseCombo {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.eclipse.nebula.cwt.base.BaseCombo#setButtonImage(org.eclipse.swt.
 	 * graphics.Image)
@@ -1597,7 +1597,7 @@ public class CDateTime extends BaseCombo {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.nebula.cwt.base.BaseCombo#setEditable(boolean)
 	 */
 	@Override
@@ -1628,7 +1628,7 @@ public class CDateTime extends BaseCombo {
 	 * Examples:<br>
 	 * </code>setFormat(CDT.DATE_LONG);</code><br />
 	 * </code>setFormat(CDT.DATE_SHORT | CDT.TIME_MEDIUM);</code><br />
-	 * 
+	 *
 	 * @param format
 	 *            the bitwise OR'ed Date and Time format to be set
 	 * @throws IllegalArgumentException
@@ -1670,7 +1670,7 @@ public class CDateTime extends BaseCombo {
 	 * use the system's default locale.<br>
 	 * If this <code>CDateTime</code> is of style <code>DROP_DOWN</code> then
 	 * the associated <code>CDateTime</code> will be set to the same locale.
-	 * 
+	 *
 	 * @param locale
 	 *            the Locale, or null to use the system's default
 	 * @see #getLocale()
@@ -1699,7 +1699,7 @@ public class CDateTime extends BaseCombo {
 	 * Set the text to be shown when the selection is null. Passing null into
 	 * this method will cause the CDateTime widget to use a default null text
 	 * for the given locale.
-	 * 
+	 *
 	 * @param text
 	 */
 	public void setNullText(String text) {
@@ -1735,7 +1735,7 @@ public class CDateTime extends BaseCombo {
 	 * Sets the painter that this CDateTime widget will use to paint its
 	 * graphical selector to the given painter, or to a default painter if the
 	 * given painter is null.
-	 * 
+	 *
 	 * @param painter
 	 *            the painter to use, or null to use a default painter
 	 */
@@ -1757,7 +1757,7 @@ public class CDateTime extends BaseCombo {
 	 * </code>setPattern("MM/dd/yyyy h:mm a");</code><br />
 	 * </code>setPattern("'Meeting @' h:mm a 'on' EEEE, MMM dd,
 	 * yyyy");</code><br />
-	 * 
+	 *
 	 * @param pattern
 	 *            the pattern to use, if it is invalid, the original is restored
 	 * @throws IllegalArgumentException
@@ -1843,7 +1843,7 @@ public class CDateTime extends BaseCombo {
 	/**
 	 * Set the selection for this CDateTime to that of the provided
 	 * <code>Date</code> object.<br>
-	 * 
+	 *
 	 * @param selection
 	 *            the new selection, or null to clear the selection
 	 */
@@ -1868,7 +1868,7 @@ public class CDateTime extends BaseCombo {
 	 * Sets the timezone to the timezone specified by the given zoneID, or to
 	 * the system default if the given zoneID is null. If the give zoneID cannot
 	 * be understood, then the timezone will be set to GMT.
-	 * 
+	 *
 	 * @param zoneID
 	 *            the id of the timezone to use, or null to use the system
 	 *            default
@@ -1885,7 +1885,7 @@ public class CDateTime extends BaseCombo {
 	/**
 	 * Sets the timezone to the given timezone, or to the system's default
 	 * timezone if the given timezone is null.
-	 * 
+	 *
 	 * @param zone
 	 *            the timezone to use, or null to use the system default
 	 * @see #setTimeZone(String)
@@ -1906,7 +1906,7 @@ public class CDateTime extends BaseCombo {
 	 * Shows the given date if it can be shown by the selector. In other words,
 	 * for graphical selectors such as a calendar, the visible range of time is
 	 * moved so that the given date is visible.
-	 * 
+	 *
 	 * @param date
 	 *            the date to show
 	 */
@@ -1923,7 +1923,7 @@ public class CDateTime extends BaseCombo {
 	/**
 	 * Show the selection if it can be shown by the selector. Has no affect if
 	 * there is no selection.
-	 * 
+	 *
 	 * @see #show(Date)
 	 */
 	public void showSelection() {
@@ -2029,7 +2029,7 @@ public class CDateTime extends BaseCombo {
 	 * field is selected) as well as if a field is being edited, it's "edit
 	 * text" is inserted for display. The <code>getSelection</code> property of
 	 * CDateTime remains unchanged.
-	 * 
+	 *
 	 * @param async
 	 *            If true, this operation will be performed asynchronously (for
 	 *            changes to text selection)
@@ -2121,7 +2121,7 @@ public class CDateTime extends BaseCombo {
 	 * while getSelection still returns 23. If user types 9 after that, the
 	 * field reaches its capacity, the attempt to commit 89 seconds fails, and
 	 * 23 gets restored on screen.
-	 * 
+	 *
 	 * @param e
 	 *            the event
 	 * @see CDateTime#updateText()
@@ -2210,7 +2210,7 @@ public class CDateTime extends BaseCombo {
 
 	/**
 	 * Returns the minimum date or <code>null</code>.
-	 * 
+	 *
 	 * @return Returns a clone of the minDate or <code>null</code> if not set.
 	 * @since 1.4.0
 	 */
@@ -2223,7 +2223,7 @@ public class CDateTime extends BaseCombo {
 
 	/**
 	 * Returns the maximum date or <code>null</code>.
-	 * 
+	 *
 	 * @return Returns a clone of the maxDate or <code>null</code> if not set.
 	 * @since 1.4.0
 	 */
@@ -2242,38 +2242,44 @@ public class CDateTime extends BaseCombo {
 		if (spinner != null) {
 			spinner.setBackground(color);
 		}
-		picker.updateColorsAndFont();
+		if(checkPicker())
+			picker.updateColorsAndFont();
 	}
 
-	
-	
+
+
 	public void setForeground(Color color) {
 		super.setForeground(color);
-		picker.updateColorsAndFont();
+		if(checkPicker())
+			picker.updateColorsAndFont();
 	}
 
 	public void setButtonHoverBackgroundColor(Color color) {
 		checkWidget();
 		this.buttonHoverBackgroundColor = color;
-		picker.updateColorsAndFont();
+		if(checkPicker())
+			picker.updateColorsAndFont();
 	}
 
 	public void setButtonHoverBorderColor(Color color) {
 		checkWidget();
 		this.buttonHoverBorderColor = color;
-		picker.updateColorsAndFont();
+		if(checkPicker())
+			picker.updateColorsAndFont();
 	}
 
 	public void setButtonSelectedBackgroundColor(Color color) {
 		checkWidget();
 		this.buttonSelectedBackgroundColor = color;
-		picker.updateColorsAndFont();
+		if(checkPicker())
+			picker.updateColorsAndFont();
 	}
 
 	public void setButtonSelectedBorderColor(Color color) {
 		checkWidget();
 		this.buttonSelectedBorderColor = color;
-		picker.updateColorsAndFont();
+		if(checkPicker())
+			picker.updateColorsAndFont();
 	}
 
 	public Color getPickerForegroundColor() {
@@ -2393,5 +2399,5 @@ public class CDateTime extends BaseCombo {
 		picker.updateColorsAndFont();
 	}
 
-	
+
 }

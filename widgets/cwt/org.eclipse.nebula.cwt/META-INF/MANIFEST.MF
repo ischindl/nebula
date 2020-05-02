@@ -6,7 +6,8 @@ Bundle-Version: 1.1.0.qualifier
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8,
+ JavaSE-1.7
 Export-Package: org.eclipse.nebula.cwt.animation,
  org.eclipse.nebula.cwt.animation.effects,
  org.eclipse.nebula.cwt.animation.movement,
