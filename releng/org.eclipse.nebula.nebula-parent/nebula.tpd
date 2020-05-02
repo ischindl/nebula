@@ -1,0 +1,19 @@
+target "Nebula target" with source requirements
+
+location "http://download.eclipse.org/releases/oxygen/" {
+	org.eclipse.ui
+	org.eclipse.ui.views
+	org.eclipse.rcp
+	org.eclipse.jface
+	org.eclipse.draw2d
+	org.eclipse.ui.forms
+	org.eclipse.swtbot.go
+	org.apache.log4j
+}
+location "http://download.eclipse.org/eclipse/updates/4.7/" {
+	org.junit
+	org.apache.commons.logging
+	javax.annotation
+	org.eclipse.core.runtime.feature.feature.group
+
+}
