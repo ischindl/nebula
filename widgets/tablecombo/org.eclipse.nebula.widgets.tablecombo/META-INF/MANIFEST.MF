@@ -13,4 +13,5 @@ Import-Package: org.eclipse.jface.viewers;resolution:=optional,
  org.eclipse.swt.accessibility,
  org.eclipse.swt.events,
  org.eclipse.swt.graphics,
+ org.eclipse.swt.internal,
  org.eclipse.swt.widgets
